@@ -1,19 +1,27 @@
 from telegram.ext import Updater,  MessageHandler, Filters
-
+import json
 def echo (update,context):
     chat_id = update.message.chat.id
     text = update.message.text
     bot = context.bot
-    like = 0
+    f = open('data.json').read()
+    data = json.loads(f)
     
+    like = data.get('LIKE')
+    dislike = data.get('DISLIKE')
     if text == '👍':
         like+=1
-    if text == '👍':
-        text = f'"LIKE {k}: 👍 DISLIKE 5: 👎"'
-    print(k)
+    if text == '👎':
+        dislike+=1
+    
+    data['LIKE'] = like
+    data['DISLIKE'] = dislike
+    data = json.dumps(data)
+    f = open('data.json','w')
+    f.write(data)
+    f.close()
 
-
-    bot.sendMessage(chat_id,text)
+    bot.sendMessage(chat_id,f"👍:{like}\n\n👎:{dislike}")
 
 updater = Updater('5643654386:AAGaxNP-8Kkwzi8Ko047p0BZBd3t6a0eIu4')
 
