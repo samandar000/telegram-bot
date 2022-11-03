@@ -4,6 +4,14 @@ def echo (update,context):
     chat_id = update.message.chat.id
     text = update.message.text
     bot = context.bot
+    like = 0
+    
+    if text == '👍':
+        like+=1
+    if text == '👍':
+        text = f'"LIKE {k}: 👍 DISLIKE 5: 👎"'
+    print(k)
+
 
     bot.sendMessage(chat_id,text)
 
